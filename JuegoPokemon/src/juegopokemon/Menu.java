@@ -22,6 +22,7 @@ public class Menu {
     private static Jugador[] jugadorUno;
     private static Jugador[] jugadorDos;
 
+    // Metodo constructor.
     public Menu() {
         this.contador = 0;
         this.contadorJugador = 0;
@@ -31,6 +32,7 @@ public class Menu {
         this.pokemonPorDefecto();
     }
 
+    // Metodo que muestra las opciones principales al iniciar el juego.
     public void menuPrincipal() {
         Scanner entrada = new Scanner(System.in);
 
@@ -49,7 +51,7 @@ public class Menu {
                     menuAdmon();
                     break;
                 case 2:
-                    menuBatallar();
+                    elegirPokemon();
                     break;
                 case 3:
                     salir();
@@ -61,6 +63,7 @@ public class Menu {
         } while (opcion > 0 && opcion <= 4);
     }
 
+    // Metodo que muestra las opciones del menu administrador.
     private void menuAdmon() {
 
         int contraseña = 201700770;
@@ -109,12 +112,13 @@ public class Menu {
         }
     }
 
+    // Metodo que muestra las opciones del menu de batallar.
     public void menuBatallar() {
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-");
         System.out.println("1. Batallar.");
-        System.out.println("2. Salir.");
+        System.out.println("2. Finalizar Partida.");
         System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-");
 
         int opcion = 0;
@@ -152,6 +156,23 @@ public class Menu {
         opcion();
     }
 
+    // Metodo que lista todos los pokemon.
+    private void mostrarPokemon() {
+
+        int iteracion = 1;
+        for (int i = 0; i < this.contador; i++) {
+
+            System.out.println("\n------ Pokemon " + iteracion + " ------");
+            System.out.println("Nombre : " + poke[i].getNombre());
+            System.out.println("Puntos de Vida : " + poke[i].getVida());
+            System.out.println("Puntos de Ataque : " + poke[i].getAtaque());
+            System.out.println(poke[i].getImagen());
+            System.out.println("");
+            iteracion++;
+        }
+
+    }
+
     // Metodo que permite almacenar o agregar un pokemon nuevo al arreglo.
     private void agregarPokemon() {
 
@@ -176,7 +197,7 @@ public class Menu {
         opcion();
     }
 
-    // Metodo que permite editar a cada pokemon que tenemos almacenado en el arreglo.
+    // Este metodo que permite editar a cada pokemon que tenemos almacenado en el arreglo.
     private void editarPokemon() {
 
         Scanner entrada = new Scanner(System.in);
@@ -214,33 +235,54 @@ public class Menu {
 
     }
 
-    private void batallar() {
+    // Este metodo permite almanecar el nombre de los jugadores asi como tambien la eleccion de sus pokemon.
+    private void elegirPokemon() {
 
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Ingrese el nombre del primer Jugador :");
-        String jugadorUno = entrada.nextLine();
+        String nombreUno = entrada.nextLine();
 
-        //System.out.println("Ingrese el nombre del segundo Jugador :");
-        //String jugadorDos = entrada.nextLine();
-        //this.jugadorDos[this.contadorJugador].setNombre(jugadorDos);
-        System.out.println("Jugador " + jugadorUno + " eliga su primer pokemon ingresando el nombre : ");
-        String eleccion = entrada.nextLine();
-        Pokemon miPokemon = elegirPokemon(eleccion);
+        System.out.println("Ingrese el nombre del segundo Jugador :");
+        String nombreDos = entrada.nextLine();
 
-        this.jugadorUno[this.contador] = new Jugador(jugadorUno, miPokemon, 0, "");
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println("----------------------- Lista de Pokemon ----------------------------------------------");
+        mostrarPokemon();
+        System.out.println("");
 
-        System.out.println("Mi pokemon elegido es : " + this.jugadorUno[this.contador].getPokemon().getNombre());
-        System.out.println("Su ataque es : " + this.jugadorUno[this.contador].getPokemon().getAtaque());
-        System.out.println(this.jugadorUno[this.contador].getPokemon().getImagen());
+        System.out.println("Jugador " + nombreUno + " eliga su primer pokemon ingresando el nombre : ");
+        String eleccionUno = entrada.nextLine();
+        Pokemon miPokemonUno = elegirPokemon(eleccionUno);
 
-        //System.out.println("Jugador " + jugadorUno + " eliga su segundo pokemon ingresando el nombre : ");
-        //System.out.println("Jugador " + jugadorDos + " eliga su primer pokemon ingresando el nombre : ");
-        //System.out.println("Jugador " + jugadorDos + " eliga su segundo pokemon ingresando el nombre : ");
+        System.out.println("Jugador " + nombreUno + " eliga su segundo pokemon ingresando el nombre : ");
+        String eleccionDos = entrada.nextLine();
+        Pokemon miPokemonDos = elegirPokemon(eleccionDos);
+
+        System.out.println("\nJugador " + nombreDos + " eliga su primer pokemon ingresando el nombre : ");
+        String eleccionTres = entrada.nextLine();
+        Pokemon miPokemonTres = elegirPokemon(eleccionTres);
+
+        System.out.println("Jugador " + nombreDos + " eliga su segundo pokemon ingresando el nombre : \n");
+        String eleccionCuatro = entrada.nextLine();
+        Pokemon miPokemonCuatro = elegirPokemon(eleccionCuatro);
+
+        this.jugadorUno[this.contador] = new Jugador(nombreUno, miPokemonUno, miPokemonDos, 0, "");
+        this.jugadorDos[this.contador] = new Jugador(nombreDos, miPokemonTres, miPokemonCuatro, 0, "");
+
         contadorJugador++;
+
+        menuBatallar();
 
     }
 
+    private void batallar() {
+
+        System.out.println("Jugador funalito eliga el pokemon con el cual atacara ");
+
+    }
+
+    // Este metodo recibe como parametro el nombre del pokemon para luego buscarlo en el arreglo y de encontrarlo retornara el pokemon en caso contrario retornara un null.
     private Pokemon elegirPokemon(String pokemon) {
 
         for (int i = 0; i < this.contador; i++) {
@@ -252,7 +294,7 @@ public class Menu {
         return null;
     }
 
-    // Metodo que almacena a 6 pokemon por defecto, este metodo se inicializa al iniciar la ejecucion del programa.
+    // Este metodo que almacena a 6 pokemon por defecto, este metodo se inicializa al iniciar la ejecucion del programa.
     private void pokemonPorDefecto() {
 
         poke[this.contador] = new Pokemon("Cyndaquil", 100, "Vivo", 20, "\n"
@@ -419,7 +461,7 @@ public class Menu {
         }
     }
 
-    // Metodo que permite finalizar la ejecucion del programa.
+    // Este metodo que permite finalizar la ejecucion del programa.
     private void salir() {
         System.out.println("Ejecucion del programa finalizada, gracias por jugar Pokemon");
         System.exit(0);

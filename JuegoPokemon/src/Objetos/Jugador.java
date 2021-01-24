@@ -13,18 +13,22 @@ public class Jugador {
 
     private String nombre;
     private Pokemon pokemon;
+    private Pokemon pokemonDos;
     private int numeroAtaque;
     private String estado;
 
-    public Jugador(String nombre, Pokemon pokemon, int numeroAtaque, String estado) {
+    public Jugador(String nombre, Pokemon pokemon, Pokemon pokemonDos, int numeroAtaque, String estado) {
         this.nombre = nombre;
         this.pokemon = pokemon;
+        this.pokemonDos = pokemonDos;
         this.numeroAtaque = numeroAtaque;
         this.estado = estado;
     }
 
     public Jugador() {
         this.nombre = "";
+        this.pokemon = null;
+        this.pokemonDos = null;
         this.numeroAtaque = 0;
         this.estado = "";
     }
@@ -83,6 +87,20 @@ public class Jugador {
      */
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    /**
+     * @return the pokemonDos
+     */
+    public Pokemon getPokemonDos() {
+        return pokemonDos;
+    }
+
+    /**
+     * @param pokemonDos the pokemonDos to set
+     */
+    public void setPokemonDos(Pokemon pokemonDos) {
+        this.pokemonDos = pokemonDos;
     }
 
 }
