@@ -113,7 +113,7 @@ public class Menu {
     }
 
     // Metodo que muestra las opciones del menu de batallar.
-    public void menuBatallar() {
+    public void menuBatallar(Jugador jugadorUno, Jugador jugadorDos) {
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-");
@@ -127,7 +127,7 @@ public class Menu {
             opcion = entrada.nextInt();
             switch (opcion) {
                 case 1:
-                    batallar();
+                    batallar(jugadorUno, jugadorDos);
                     break;
                 case 2:
                     menuPrincipal();
@@ -190,7 +190,7 @@ public class Menu {
         System.out.println("Ingrese una imagen para del Pokemon : ");
         imagen = valor.nextLine();
 
-        poke[this.contador] = new Pokemon(nombre, vida, estado, ataque, imagen);
+        poke[this.contador] = new Pokemon(nombre, vida, estado, ataque, imagen, 0, 0);
         this.contador++;
 
         System.out.println("¡ Pokemon creado exitosamente !\n");
@@ -235,7 +235,7 @@ public class Menu {
 
     }
 
-    // Este metodo permite almanecar el nombre de los jugadores asi como tambien la eleccion de sus pokemon.
+    // Este metodo permite almanecar en un vector a los jugadores.
     private void elegirPokemon() {
 
         Scanner entrada = new Scanner(System.in);
@@ -267,18 +267,44 @@ public class Menu {
         String eleccionCuatro = entrada.nextLine();
         Pokemon miPokemonCuatro = elegirPokemon(eleccionCuatro);
 
-        this.jugadorUno[this.contador] = new Jugador(nombreUno, miPokemonUno, miPokemonDos, 0, "");
-        this.jugadorDos[this.contador] = new Jugador(nombreDos, miPokemonTres, miPokemonCuatro, 0, "");
+        this.jugadorUno[this.contadorJugador] = new Jugador(nombreUno, miPokemonUno, miPokemonDos, 0, "");
+        this.jugadorDos[this.contadorJugador] = new Jugador(nombreDos, miPokemonTres, miPokemonCuatro, 0, "");
 
-        contadorJugador++;
+        Jugador uno = this.jugadorUno[this.contadorJugador];
+        Jugador dos = this.jugadorDos[this.contadorJugador];
 
-        menuBatallar();
+        this.contadorJugador++;
+
+        menuBatallar(uno, dos);
 
     }
 
-    private void batallar() {
+    private void batallar(Jugador jugadorUno, Jugador jugadorDos) {
 
-        System.out.println("Jugador funalito eliga el pokemon con el cual atacara ");
+        Scanner entrada = new Scanner(System.in);
+        Pokemon pokeUno = null, pokeDos = null, pokeTres = null, pokeCuatro = null;
+        Jugador primero = jugadorUno;
+        Jugador segundo = jugadorDos;
+
+        do {
+
+            System.out.println("Jugador " + jugadorUno.getNombre() + " ¿ con que pokemon desea atacar ?");
+            pokeUno = jugadorUno.elegirPokemonDeAtaque(jugadorUno);
+            System.out.println("pokemon elegido" + pokeUno.getNombre() + "\n");
+            System.out.println("Jugador " + jugadorUno.getNombre() + " ¿ a que pokemon desea atacar ?");
+            pokeTres = jugadorDos.elegirPokemonAtacar(jugadorDos);
+            System.out.println("pokemon a atacar" + pokeTres.getNombre() + "\n");
+
+            if (segundo.getPokemon().getVida() != 0) {
+                int ataque = pokeUno.getAtaque();
+                int vida = pokeTres.getVida();
+                int f = vida - ataque;
+                pokeTres.setVida(f);
+                System.out.println("Ataque exitoso");
+                System.out.println("Vida actualizada "+pokeTres.getVida());
+            }
+
+        } while ((pokeUno.getVida() != 0 && pokeDos.getVida() != 0) || (pokeTres.getVida() != 0 && pokeCuatro.getVida() != 0));
 
     }
 
@@ -315,7 +341,7 @@ public class Menu {
                 + "                    ,%&&&&&&&&&&&&&&&&&&&               ,&&.\n"
                 + "                     %%%%&&&&&&%%%%%%%%%&                   \n"
                 + "                      /%%%%%%%%  %%%%%%&,                   \n"
-                + "                        %%%,%       %%%.                    ");
+                + "                        %%%,%       %%%.                    ", 0, 0);
 
         this.contador++;
         poke[this.contador] = new Pokemon("Chikorita", 100, "Vivo", 20, "                                                            \n"
@@ -344,7 +370,7 @@ public class Menu {
                 + "             ***///    *@,,,,,*%%%@@/(//////@               \n"
                 + "            @,**@        @@**@@@      @(*/(                 \n"
                 + "                          *,,@                              \n"
-                + "                                              ");
+                + "                                              ", 0, 0);
 
         this.contador++;
         poke[this.contador] = new Pokemon("Totodile", 100, "Vivo", 20, "                                                             \n"
@@ -374,7 +400,7 @@ public class Menu {
                 + "        ####  #########           ########                  \n"
                 + "         ######                   ###### ##,                \n"
                 + "                                 ######## ###               \n"
-                + "                                 ###(####.##( ");
+                + "                                 ###(####.##( ", 0, 0);
 
         this.contador++;
         poke[this.contador] = new Pokemon("Charizard", 80, "Vivo", 16, "                                          *                 \n"
@@ -392,7 +418,7 @@ public class Menu {
                 + "                     ./((((((/******(((((((                 \n"
                 + "                        (((%        (((%(                   \n"
                 + "                      ,****.          ****                  \n"
-                + "                                       .  .   ");
+                + "                                       .  .   ", 0, 0);
         this.contador++;
         poke[this.contador] = new Pokemon("Gengar", 100, "Vivo", 20, ""
                 + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&@@@@@@@@@\n"
@@ -418,7 +444,7 @@ public class Menu {
                 + "@@@@@@@@#(///**********************,,,,,,*******%@@@@@@@@@@@\n"
                 + "@@@@@@@@#//****,,,,,,*************,,,,**********@@@@@@@@@@@@\n"
                 + "@@@@@@@%(/***,,,,,,,#@@@@@@@@@@@@@@@@**********&@@@@@@@@@@@@\n"
-                + "@@@@@@@@@@@%/&@@@@@@@@@@@@@@@@@@@@@@@@@********/@@@@@@@@@@@@");
+                + "@@@@@@@@@@@%/&@@@@@@@@@@@@@@@@@@@@@@@@@********/@@@@@@@@@@@@", 0, 0);
 
         this.contador++;
         poke[this.contador] = new Pokemon("Chansey", 100, "Vivo", 18, ""
@@ -444,7 +470,7 @@ public class Menu {
                 + "          /&&&&&&&&&&&&# ((########.,&&&&&&&&&&%%%          \n"
                 + "              %%&&&&&&&&&&&&&&&&&&&&&&&&&&&%%%%             \n"
                 + "            ##%##  *%%%%&&&&&&&&&&&%%%%%%, *%%%%            \n"
-                + "          %%%#%##(,                       /##%%%%#.    ");
+                + "          %%%#%##(,                       /##%%%%#.    ", 0, 0);
 
     }
 

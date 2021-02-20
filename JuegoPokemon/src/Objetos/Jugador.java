@@ -5,6 +5,8 @@
  */
 package Objetos;
 
+import java.util.Scanner;
+
 /**
  *
  * @author dialj
@@ -31,6 +33,54 @@ public class Jugador {
         this.pokemonDos = null;
         this.numeroAtaque = 0;
         this.estado = "";
+    }
+
+    public Pokemon elegirPokemonDeAtaque(Jugador jugador) {
+
+        Scanner entrada = new Scanner(System.in);
+        int opcion = 0;
+
+        System.out.println("-----------------------------------------");
+        System.out.println("1." + jugador.getPokemon().getNombre());
+        System.out.println("2." + jugador.getPokemonDos().getNombre());
+        System.out.println("-----------------------------------------\n");
+        opcion = entrada.nextInt();
+        switch (opcion) {
+            case 1:
+                Pokemon uno = jugador.getPokemon();
+                return uno;
+            case 2:
+                Pokemon dos = jugador.getPokemon();
+                return dos;
+            default:
+                System.out.println("No puede elegir un pokemon diferente , vuelva a intentarlo");
+                elegirPokemonDeAtaque(jugador);
+        }
+        return null;
+    }
+
+    public Pokemon elegirPokemonAtacar(Jugador jugador) {
+
+        Scanner entrada = new Scanner(System.in);
+        int opcion = 0;
+
+        System.out.println("-----------------------------------------");
+        System.out.println("1." + jugador.getPokemon().getNombre());
+        System.out.println("2." + jugador.getPokemonDos().getNombre());
+        System.out.println("-----------------------------------------\n");
+        opcion = entrada.nextInt();
+        switch (opcion) {
+            case 1:
+                Pokemon uno = jugador.getPokemon();
+                return uno;
+            case 2:
+                Pokemon dos = jugador.getPokemon();
+                return dos;
+            default:
+                System.out.println("No puede elegir un pokemon diferente , vuelva a intentarlo");
+                elegirPokemonAtacar(jugador);
+        }
+        return null;
     }
 
     /**

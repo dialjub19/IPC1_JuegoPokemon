@@ -19,15 +19,20 @@ public class Pokemon {
     private String estado;
     private int ataque;
     private String imagen;
-    //
+    private int partidaGanada;
+    private int partidaPerdida;
 
-    public Pokemon(String nombre, int vida, String estado, int ataque, String imagen) {
+    public Pokemon(String nombre, int vida, String estado, int ataque, String imagen, int partidaGanada, int partidaPerdida) {
         this.nombre = nombre;
         this.vida = vida;
         this.estado = estado;
         this.ataque = ataque;
         this.imagen = imagen;
+        this.partidaGanada = partidaGanada;
+        this.partidaPerdida = partidaPerdida;
     }
+    
+
 
     public Pokemon() {
         nombre = "";
@@ -35,6 +40,8 @@ public class Pokemon {
         estado = "";
         ataque = -1;
         imagen = "";
+        partidaGanada = 0;
+        partidaGanada = 0;
     }
     
     /**
@@ -43,6 +50,7 @@ public class Pokemon {
     public String getNombre() {
         return nombre;
     }
+    
 
     /**
      * @param nombre the nombre to set
@@ -105,6 +113,34 @@ public class Pokemon {
      */
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    /**
+     * @return the partidaGanada
+     */
+    public int getPartidaGanada() {
+        return partidaGanada;
+    }
+
+    /**
+     * @param partidaGanada the partidaGanada to set
+     */
+    public void setPartidaGanada(int partidaGanada) {
+        this.partidaGanada = partidaGanada;
+    }
+
+    /**
+     * @return the partidaPerdida
+     */
+    public int getPartidaPerdida() {
+        return partidaPerdida;
+    }
+
+    /**
+     * @param partidaPerdida the partidaPerdida to set
+     */
+    public void setPartidaPerdida(int partidaPerdida) {
+        this.partidaPerdida = partidaPerdida;
     }
 
 }
