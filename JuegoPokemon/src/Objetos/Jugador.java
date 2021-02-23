@@ -40,10 +40,10 @@ public class Jugador {
         Scanner entrada = new Scanner(System.in);
         int opcion = 0;
 
-        System.out.println("-----------------------------------------");
+        System.out.println("\n-----------------------------------------");
         System.out.println("1." + jugador.getPokemon().getNombre());
         System.out.println("2." + jugador.getPokemonDos().getNombre());
-        System.out.println("-----------------------------------------\n");
+        System.out.println("-------------------------------------------");
         opcion = entrada.nextInt();
         switch (opcion) {
             case 1:
@@ -64,10 +64,10 @@ public class Jugador {
         Scanner entrada = new Scanner(System.in);
         int opcion = 0;
 
-        System.out.println("-----------------------------------------");
+        System.out.println("\n-----------------------------------------");
         System.out.println("1." + jugador.getPokemon().getNombre());
         System.out.println("2." + jugador.getPokemonDos().getNombre());
-        System.out.println("-----------------------------------------\n");
+        System.out.println("-------------------------------------------");
         opcion = entrada.nextInt();
         switch (opcion) {
             case 1:
