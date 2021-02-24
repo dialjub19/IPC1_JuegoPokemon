@@ -44,13 +44,22 @@ public class Jugador {
         System.out.println("1." + jugador.getPokemon().getNombre());
         System.out.println("2." + jugador.getPokemonDos().getNombre());
         System.out.println("-------------------------------------------");
+        System.out.println("Seleccione el pokemon con el que desea atacar : ");
         opcion = entrada.nextInt();
         switch (opcion) {
             case 1:
                 Pokemon uno = jugador.getPokemon();
+                if (uno.getVida() <= 0) {
+                    System.out.println(uno.getNombre() + " esta demasiado debil para atacar, elige otro pokemon para pelear ..");
+                    elegirPokemonDeAtaque(jugador);
+                }
                 return uno;
             case 2:
-                Pokemon dos = jugador.getPokemon();
+                Pokemon dos = jugador.getPokemonDos();
+                if (dos.getVida() <= 0) {
+                    System.out.println(dos.getNombre() + " esta demasiado debil para atacar, elige otro pokemon para pelear ..");
+                    elegirPokemonDeAtaque(jugador);
+                }
                 return dos;
             default:
                 System.out.println("No puede elegir un pokemon diferente , vuelva a intentarlo");
@@ -68,13 +77,22 @@ public class Jugador {
         System.out.println("1." + jugador.getPokemon().getNombre());
         System.out.println("2." + jugador.getPokemonDos().getNombre());
         System.out.println("-------------------------------------------");
+        System.out.println("Seleccione el pokemon al que desea atacar : ");
         opcion = entrada.nextInt();
         switch (opcion) {
             case 1:
                 Pokemon uno = jugador.getPokemon();
+                if (uno.getVida() <= 0) {
+                    System.out.println(uno.getNombre() + " esta demasiado debil para pelear, elige otro pokemon para pelear ..");
+                    elegirPokemonAtacar(jugador);
+                }
                 return uno;
             case 2:
-                Pokemon dos = jugador.getPokemon();
+                Pokemon dos = jugador.getPokemonDos();
+                if (dos.getVida() <= 0) {
+                    System.out.println(dos.getNombre() + " esta demasiado debil para pelear, elige otro pokemon para pelear ..");
+                    elegirPokemonAtacar(jugador);
+                }
                 return dos;
             default:
                 System.out.println("No puede elegir un pokemon diferente , vuelva a intentarlo");

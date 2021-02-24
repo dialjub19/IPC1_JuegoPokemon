@@ -240,6 +240,7 @@ public class Menu {
     private void elegirPokemon() {
 
         Scanner entrada = new Scanner(System.in);
+        int numeroAleatorio = (int) (Math.random() * (2));
 
         System.out.println("Ingrese el nombre del primer Jugador :");
         String nombreUno = entrada.nextLine();
@@ -276,7 +277,11 @@ public class Menu {
 
         this.contadorJugador++;
 
-        menuBatallar(uno, dos);
+        if (numeroAleatorio == 1) {
+            menuBatallar(uno, dos);
+        } else {
+            menuBatallar(dos, uno);
+        }
 
     }
 
@@ -284,14 +289,17 @@ public class Menu {
 
         Scanner entrada = new Scanner(System.in);
         Pokemon pokeUno = null, pokeDos = null, pokeTres = null, pokeCuatro = null;
+        int contadorAtaqueUno = 0;
+        int contadorAtaqueDos = 0;
 
-        do {
+        while ((jugadorUno.getPokemon().getVida() > 0 || jugadorUno.getPokemonDos().getVida() > 0) && (jugadorDos.getPokemon().getVida() > 0 || jugadorDos.getPokemonDos().getVida() > 0)) {
 
-            System.out.println("Jugador " + jugadorUno.getNombre() + " ¿ con que pokemon desea atacar ?");
+            System.out.println("\nJugador " + jugadorUno.getNombre() + " ¿ con que pokemon desea atacar ?");
             pokeUno = jugadorUno.elegirPokemonDeAtaque(jugadorUno);
 
-            System.out.println("Jugador " + jugadorUno.getNombre() + " ¿ a que pokemon desea atacar ?");
+            System.out.println("\nJugador " + jugadorUno.getNombre() + " ¿ a que pokemon desea atacar ?");
             pokeTres = jugadorDos.elegirPokemonAtacar(jugadorDos);
+            contadorAtaqueUno++;
 
             if (!(jugadorDos.getPokemon().getVida() < 0) && (pokeTres.equals(jugadorDos.getPokemon()))) {
 
@@ -300,11 +308,14 @@ public class Menu {
                 int total = vida - ataque;
 
                 System.out.println("----------- ATACANDO --------------");
-                System.out.println("Atacando a " + pokeTres.getNombre());
+                System.out.println(pokeUno.getNombre() + " esta atacando a " + pokeTres.getNombre());
                 System.out.println("Actualmente " + pokeTres.getEstado());
+                System.out.println("Vida " + pokeTres.getVida());
+                System.out.println("Ataque " + pokeTres.getAtaque());
                 pokeTres.setVida(total);
+                jugadorUno.setNumeroAtaque(contadorAtaqueUno);
                 System.out.println("¡ Ataque realizado exitosamente !");
-                System.out.println("Vida actualizada " + pokeTres.getVida()+"\n");
+                System.out.println("El pokemon " + pokeTres.getNombre() + " quedo con una vida actual de " + pokeTres.getVida() + "\n");
 
             } else if (!(jugadorDos.getPokemonDos().getVida() < 0) && (pokeTres.equals(jugadorDos.getPokemonDos()))) {
 
@@ -313,11 +324,14 @@ public class Menu {
                 int total = vida - ataque;
 
                 System.out.println("----------- ATACANDO --------------");
-                System.out.println("Atacando a " + pokeTres.getNombre());
+                System.out.println(pokeUno.getNombre() + " esta atacando a " + pokeTres.getNombre());
                 System.out.println("Actualmente " + pokeTres.getEstado());
+                System.out.println("Vida " + pokeTres.getVida());
+                System.out.println("Ataque " + pokeTres.getAtaque());
                 pokeTres.setVida(total);
+                jugadorUno.setNumeroAtaque(contadorAtaqueUno);
                 System.out.println("¡ Ataque realizado exitosamente !");
-                System.out.println("Vida actualizada " + pokeTres.getVida()+"\n");
+                System.out.println("El pokemon " + pokeTres.getNombre() + " quedo con una vida actual de " + pokeTres.getVida() + "\n");
 
             } else {
 
@@ -339,11 +353,12 @@ public class Menu {
 
             }
 
-            System.out.println("Jugador " + jugadorDos.getNombre() + " ¿ con que pokemon desea atacar ?");
+            System.out.println("\nJugador " + jugadorDos.getNombre() + " ¿ con que pokemon desea atacar ?");
             pokeDos = jugadorDos.elegirPokemonDeAtaque(jugadorDos);
 
-            System.out.println("Jugador " + jugadorDos.getNombre() + " ¿ a que pokemon desea atacar ?");
+            System.out.println("\nJugador " + jugadorDos.getNombre() + " ¿ a que pokemon desea atacar ?");
             pokeCuatro = jugadorUno.elegirPokemonAtacar(jugadorUno);
+            contadorAtaqueDos++;
 
             if (!(jugadorUno.getPokemon().getVida() < 0) && (pokeCuatro.equals(jugadorUno.getPokemon()))) {
 
@@ -352,11 +367,16 @@ public class Menu {
                 int total = vida - ataque;
 
                 System.out.println("----------- ATACANDO --------------");
-                System.out.println("Atacando a " + pokeCuatro.getNombre());
+                System.out.println(pokeDos.getNombre() + " esta atacando a " + pokeCuatro.getNombre());
                 System.out.println("Actualmente " + pokeCuatro.getEstado());
+                System.out.println("Vida " + pokeCuatro.getVida());
+                System.out.println("Ataque " + pokeCuatro.getAtaque());
                 pokeCuatro.setVida(total);
+                jugadorDos.setNumeroAtaque(contadorAtaqueDos);
+                contadorAtaqueDos++;
                 System.out.println("¡ Ataque realizado exitosamente !");
-                System.out.println("Vida actualizada " + pokeCuatro.getVida()+"\n");
+                System.out.println("Vida actualizada " + pokeCuatro.getVida() + "\n");
+                System.out.println("El pokemon " + pokeCuatro.getNombre() + " quedo con una vida actual de " + pokeCuatro.getVida() + "\n");
 
             } else if (!(jugadorUno.getPokemonDos().getVida() < 0) && (pokeCuatro.equals(jugadorUno.getPokemonDos()))) {
 
@@ -365,11 +385,15 @@ public class Menu {
                 int total = vida - ataque;
 
                 System.out.println("----------- ATACANDO --------------");
-                System.out.println("Atacando a " + pokeCuatro.getNombre());
+                System.out.println(pokeDos.getNombre() + "esta atacando a " + pokeCuatro.getNombre());
                 System.out.println("Actualmente " + pokeCuatro.getEstado());
+                System.out.println("Vida " + pokeCuatro.getVida());
+                System.out.println("Ataque " + pokeCuatro.getAtaque());
                 pokeCuatro.setVida(total);
+                jugadorDos.setNumeroAtaque(contadorAtaqueDos);
                 System.out.println("¡ Ataque realizado exitosamente !");
-                System.out.println("Vida actualizada " + pokeCuatro.getVida()+"\n");
+                System.out.println("Vida actualizada " + pokeCuatro.getVida() + "\n");
+                System.out.println("El pokemon " + pokeCuatro.getNombre() + " quedo con una vida actual de " + pokeCuatro.getVida() + "\n");
 
             } else {
 
@@ -390,9 +414,18 @@ public class Menu {
 
             }
 
-        } while ((jugadorUno.getPokemon().getVida() > 0 && jugadorUno.getPokemonDos().getVida() > 0) || (jugadorDos.getPokemon().getVida() > 0 && jugadorDos.getPokemonDos().getVida() > 0));
+        } 
 
-        System.out.println("que pedo crack ");
+        if (jugadorUno.getPokemon().getEstado().equals("Muerto") && jugadorUno.getPokemonDos().getEstado().equals("Muerto")) {
+            System.out.println("¡ Jugador " + jugadorDos.getNombre() + " felicitaciones has ganado la batalla !");
+            jugadorDos.setEstado("Ganador");
+            menuPrincipal();
+        } else if (jugadorDos.getPokemon().getEstado().equals("Muerto") && jugadorDos.getPokemonDos().getEstado().equals("Muerto")) {
+            System.out.println("¡ Jugador " + jugadorUno.getNombre() + " felicitaciones has ganado la batalla !");
+            jugadorUno.setEstado("Ganador");
+            menuPrincipal();
+        }
+
     }
 
     // Este metodo recibe como parametro el nombre del pokemon para luego buscarlo en el arreglo y de encontrarlo retornara el pokemon en caso contrario retornara un null.
@@ -408,7 +441,7 @@ public class Menu {
         }
 
         if (retorno == null) {
-            System.out.println("¡ El nombre del pokemon "+pokemon+" esta incorrecto o no existe, vuelva a intentarlo !\n");
+            System.out.println("¡ El nombre del pokemon " + pokemon + " esta incorrecto o no existe, vuelva a intentarlo !\n");
             System.out.println("Ingrese el nombre de su pokemon nuevamente : ");
             String nombrePokemon = entrada.nextLine();
             elegirPokemon(nombrePokemon);
@@ -567,7 +600,7 @@ public class Menu {
                 + "              %%&&&&&&&&&&&&&&&&&&&&&&&&&&&%%%%             \n"
                 + "            ##%##  *%%%%&&&&&&&&&&&%%%%%%, *%%%%            \n"
                 + "          %%%#%##(,                       /##%%%%#.    ", 0, 0);
-
+        this.contador++;
     }
 
     // Metodo

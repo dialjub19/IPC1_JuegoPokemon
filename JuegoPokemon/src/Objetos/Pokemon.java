@@ -19,20 +19,18 @@ public class Pokemon {
     private String estado;
     private int ataque;
     private String imagen;
-    private int partidaGanada;
-    private int partidaPerdida;
+    private int estadoPartida;
+    private int ataqueRecibido;
 
-    public Pokemon(String nombre, int vida, String estado, int ataque, String imagen, int partidaGanada, int partidaPerdida) {
+    public Pokemon(String nombre, int vida, String estado, int ataque, String imagen, int estadoPartida, int ataqueRecibido) {
         this.nombre = nombre;
         this.vida = vida;
         this.estado = estado;
         this.ataque = ataque;
         this.imagen = imagen;
-        this.partidaGanada = partidaGanada;
-        this.partidaPerdida = partidaPerdida;
+        this.estadoPartida = estadoPartida;
+        this.ataqueRecibido = ataqueRecibido;
     }
-    
-
 
     public Pokemon() {
         nombre = "";
@@ -40,17 +38,16 @@ public class Pokemon {
         estado = "";
         ataque = -1;
         imagen = "";
-        partidaGanada = 0;
-        partidaGanada = 0;
+        estadoPartida = 0;
+        ataqueRecibido = 0;
     }
-    
+
     /**
      * @return the nombre
      */
     public String getNombre() {
         return nombre;
     }
-    
 
     /**
      * @param nombre the nombre to set
@@ -118,29 +115,29 @@ public class Pokemon {
     /**
      * @return the partidaGanada
      */
-    public int getPartidaGanada() {
-        return partidaGanada;
+    public int getEstadoPartida() {
+        return estadoPartida;
     }
 
     /**
      * @param partidaGanada the partidaGanada to set
      */
-    public void setPartidaGanada(int partidaGanada) {
-        this.partidaGanada = partidaGanada;
+    public void setEstadoPartida(int estadoPartida) {
+        this.estadoPartida = estadoPartida;
     }
 
     /**
      * @return the partidaPerdida
      */
-    public int getPartidaPerdida() {
-        return partidaPerdida;
+    public int getAtaqueRecibido() {
+        return ataqueRecibido;
     }
 
     /**
      * @param partidaPerdida the partidaPerdida to set
      */
-    public void setPartidaPerdida(int partidaPerdida) {
-        this.partidaPerdida = partidaPerdida;
+    public void setAtaqueRecibido(int ataqueRecibido) {
+        this.ataqueRecibido = ataqueRecibido;
     }
 
 }
