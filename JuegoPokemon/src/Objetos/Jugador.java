@@ -12,13 +12,13 @@ import java.util.Scanner;
  * @author dialj
  */
 public class Jugador {
-
+    
     private String nombre;
     private Pokemon pokemon;
     private Pokemon pokemonDos;
     private int numeroAtaque;
     private String estado;
-
+    
     public Jugador(String nombre, Pokemon pokemon, Pokemon pokemonDos, int numeroAtaque, String estado) {
         this.nombre = nombre;
         this.pokemon = pokemon;
@@ -26,21 +26,21 @@ public class Jugador {
         this.numeroAtaque = numeroAtaque;
         this.estado = estado;
     }
-
+    
     public Jugador() {
-        this.nombre = "";
-        this.pokemon = null;
-        this.pokemonDos = null;
-        this.numeroAtaque = 0;
-        this.estado = "";
+        setNombre("");
+        setPokemon(null);
+        setPokemonDos(null);
+        setNumeroAtaque(0);
+        setEstado("");
     }
-
+    
     public Pokemon elegirPokemonDeAtaque(Jugador jugador) {
-
+        
         Scanner entrada = new Scanner(System.in);
         int opcion = 0;
-
-        System.out.println("\n-----------------------------------------");
+        
+        System.out.println("-----------------------------------------");
         System.out.println("1." + jugador.getPokemon().getNombre());
         System.out.println("2." + jugador.getPokemonDos().getNombre());
         System.out.println("-------------------------------------------");
@@ -50,15 +50,15 @@ public class Jugador {
             case 1:
                 Pokemon uno = jugador.getPokemon();
                 if (uno.getVida() <= 0) {
-                    System.out.println(uno.getNombre() + " esta demasiado debil para atacar, elige otro pokemon para pelear ..");
-                    elegirPokemonDeAtaque(jugador);
+                    System.out.println(uno.getNombre() + " esta demasiado debil para atacar, elige otro pokemon para pelear ..\n");
+                    return elegirPokemonDeAtaque(jugador);
                 }
                 return uno;
             case 2:
                 Pokemon dos = jugador.getPokemonDos();
                 if (dos.getVida() <= 0) {
-                    System.out.println(dos.getNombre() + " esta demasiado debil para atacar, elige otro pokemon para pelear ..");
-                    elegirPokemonDeAtaque(jugador);
+                    System.out.println(dos.getNombre() + " esta demasiado debil para atacar, elige otro pokemon para pelear ..\n");
+                    return elegirPokemonDeAtaque(jugador);
                 }
                 return dos;
             default:
@@ -67,31 +67,32 @@ public class Jugador {
         }
         return null;
     }
-
+    
     public Pokemon elegirPokemonAtacar(Jugador jugador) {
-
+        
         Scanner entrada = new Scanner(System.in);
-        int opcion = 0;
-
+        
         System.out.println("\n-----------------------------------------");
         System.out.println("1." + jugador.getPokemon().getNombre());
         System.out.println("2." + jugador.getPokemonDos().getNombre());
         System.out.println("-------------------------------------------");
         System.out.println("Seleccione el pokemon al que desea atacar : ");
+        int opcion = 0;
         opcion = entrada.nextInt();
         switch (opcion) {
             case 1:
                 Pokemon uno = jugador.getPokemon();
                 if (uno.getVida() <= 0) {
-                    System.out.println(uno.getNombre() + " esta demasiado debil para pelear, elige otro pokemon para pelear ..");
-                    elegirPokemonAtacar(jugador);
+                    System.out.println(uno.getNombre() + " esta demasiado debil para pelear, elige otro pokemon para atacar ..\n");
+                    return elegirPokemonAtacar(jugador);
+                    
                 }
                 return uno;
             case 2:
                 Pokemon dos = jugador.getPokemonDos();
                 if (dos.getVida() <= 0) {
-                    System.out.println(dos.getNombre() + " esta demasiado debil para pelear, elige otro pokemon para pelear ..");
-                    elegirPokemonAtacar(jugador);
+                    System.out.println(dos.getNombre() + " esta demasiado debil para pelear, elige otro pokemon para atacar ..\n");
+                    return elegirPokemonAtacar(jugador);
                 }
                 return dos;
             default:
@@ -170,5 +171,5 @@ public class Jugador {
     public void setPokemonDos(Pokemon pokemonDos) {
         this.pokemonDos = pokemonDos;
     }
-
+    
 }

@@ -21,8 +21,9 @@ public class Pokemon {
     private String imagen;
     private int estadoPartida;
     private int ataqueRecibido;
+    private int elegido;
 
-    public Pokemon(String nombre, int vida, String estado, int ataque, String imagen, int estadoPartida, int ataqueRecibido) {
+    public Pokemon(String nombre, int vida, String estado, int ataque, String imagen, int estadoPartida, int ataqueRecibido, int elegido) {
         this.nombre = nombre;
         this.vida = vida;
         this.estado = estado;
@@ -30,16 +31,18 @@ public class Pokemon {
         this.imagen = imagen;
         this.estadoPartida = estadoPartida;
         this.ataqueRecibido = ataqueRecibido;
+        this.elegido = elegido;
     }
 
     public Pokemon() {
-        nombre = "";
-        vida = -1;
-        estado = "";
-        ataque = -1;
-        imagen = "";
-        estadoPartida = 0;
-        ataqueRecibido = 0;
+        setNombre("");
+        setVida(-1);
+        setEstado("");
+        setAtaque(-1);
+        setImagen("");
+        setEstadoPartida(0);
+        setAtaqueRecibido(0);;
+        setElegido(0);
     }
 
     /**
@@ -138,6 +141,20 @@ public class Pokemon {
      */
     public void setAtaqueRecibido(int ataqueRecibido) {
         this.ataqueRecibido = ataqueRecibido;
+    }
+
+    /**
+     * @return the elegido
+     */
+    public int getElegido() {
+        return elegido;
+    }
+
+    /**
+     * @param elegido the elegido to set
+     */
+    public void setElegido(int elegido) {
+        this.elegido = elegido;
     }
 
 }
