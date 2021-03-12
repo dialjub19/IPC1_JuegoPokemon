@@ -41,10 +41,11 @@ public class Pokemon {
         setAtaque(-1);
         setImagen("");
         setEstadoPartida(0);
-        setAtaqueRecibido(0);;
+        setAtaqueRecibido(0);
         setElegido(0);
     }
 
+    
     /**
      * @return the nombre
      */

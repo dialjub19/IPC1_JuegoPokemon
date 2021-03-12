@@ -7,6 +7,7 @@ package juegopokemon;
 
 import Objetos.Menu;
 import Objetos.Pokemon;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -17,9 +18,8 @@ public class JuegoPokemon {
 
     public static void main(String[] args) {
 
-       Menu miMenu = new Menu();
-       miMenu.menuPrincipal();
-
+        Menu miMenu = new Menu();
+        miMenu.menuPrincipal();
 
     }
 }

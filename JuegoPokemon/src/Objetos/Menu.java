@@ -52,8 +52,12 @@ public class Menu {
 
         int opcion = 0;
         do {
-            System.out.println("Ingrese una opcion : ");
-            opcion = entrada.nextInt();
+            try {
+                System.out.println("Ingrese una opcion : ");
+                opcion = entrada.nextInt();
+            } catch (Exception e) {
+                System.out.println("Solo se permite un valor numerico, vuelva a intentarlo");
+            }
             switch (opcion) {
                 case 1:
                     menuAdmon();
@@ -78,8 +82,12 @@ public class Menu {
         int validarContraseña = 0;
         Scanner entrada = new Scanner(System.in);
 
-        System.out.println("Ingrese la contraseña para continuar : ");
-        validarContraseña = entrada.nextInt();
+        try {
+            System.out.println("Ingrese la contraseña para continuar : ");
+            validarContraseña = entrada.nextInt();
+        } catch (Exception e) {
+            System.out.println("Solo se permiten valores numericos, vuelva a intentarlo.");
+        }
 
         if (contraseña != validarContraseña) {
             System.out.println("Contraseña Invalida, vuelva a intentarlo...");
@@ -96,8 +104,13 @@ public class Menu {
 
             int opcion = 0;
             do {
-                System.out.println("Ingrese una opcion : ");
-                opcion = entrada.nextInt();
+                try {
+                    System.out.println("Ingrese una opcion : ");
+                    opcion = entrada.nextInt();
+                } catch (Exception e) {
+                    System.out.println("Solo se permite un valor numerico, vuelva a intentarlo");
+                }
+
                 switch (opcion) {
                     case 1:
                         listarPokemon();
@@ -135,8 +148,12 @@ public class Menu {
 
         int opcion = 0;
         do {
-            System.out.println("Ingrese una opcion : ");
-            opcion = entrada.nextInt();
+            try {
+                System.out.println("Ingrese una opcion : ");
+                opcion = entrada.nextInt();
+            } catch (Exception e) {
+                System.out.println("Solo se permite un valor numerico, vuelva a intentarlo");
+            }
             switch (opcion) {
                 case 1:
                     registroPartida();
@@ -164,10 +181,10 @@ public class Menu {
         for (int i = 0; i < this.contadorReporte; i++) {
             for (int j = 0; j < this.contadorReporte; j++) {
                 if (reporte[i].getMiPokemon() != null) {
-                    if (reporte[i].getMiPokemon().getEstadoPartida() > reporte[j].getMiPokemon().getEstadoPartida()) {
-                        Pokemon aux = reporte[i].getMiPokemon();
-                        reporte[i] = reporte[j];
-                        reporte[j].setMiPokemon(aux);
+                    if (reporte[j].getMiPokemon().getEstadoPartida() > reporte[j + 1].getMiPokemon().getEstadoPartida()) {
+                        Pokemon aux = reporte[j].getMiPokemon();
+                        reporte[j] = reporte[j + 1];
+                        reporte[j + 1].setMiPokemon(aux);
                     }
                 } else {
                     System.out.println("No hay registro de partidas");
@@ -193,10 +210,10 @@ public class Menu {
         for (int i = 0; i < this.contadorReporte; i++) {
             for (int j = 0; j < this.contadorReporte; j++) {
                 if (reporte[i].getMiPokemon() != null) {
-                    if (reporte[i].getMiPokemon().getEstadoPartida() < reporte[j].getMiPokemon().getEstadoPartida()) {
+                    if (reporte[i].getMiPokemon().getEstadoPartida() < reporte[j + 1].getMiPokemon().getEstadoPartida()) {
                         Pokemon aux = reporte[i].getMiPokemon();
-                        reporte[i] = reporte[j];
-                        reporte[j].setMiPokemon(aux);
+                        reporte[i] = reporte[j + 1];
+                        reporte[j + 1].setMiPokemon(aux);
                     }
                 } else {
                     System.out.println("No hay registro de partidas");
@@ -206,7 +223,7 @@ public class Menu {
         }
 
         for (int i = 0; i < this.contadorReporte; i++) {
-            System.out.println("\n--------------------Pokemones mas fuertes------------------");
+            System.out.println("\n--------------------Pokemones mas debil------------------");
             System.out.println("Nombre : " + reporte[i].getMiPokemon().getNombre());
             System.out.println("Ataque : " + reporte[i].getMiPokemon().getAtaque());
             System.out.println("Vida : " + reporte[i].getMiPokemon().getVida());
@@ -248,8 +265,12 @@ public class Menu {
 
         int opcion = 0;
         do {
-            System.out.println("Ingrese una opcion : ");
-            opcion = entrada.nextInt();
+            try {
+                System.out.println("Ingrese una opcion : ");
+                opcion = entrada.nextInt();
+            } catch (Exception e) {
+                System.out.println("Solo se permite un valor numerico, vuelva a intentarlo");
+            }
             switch (opcion) {
                 case 1:
                     batallar(jugadorUno, jugadorDos);
@@ -274,7 +295,7 @@ public class Menu {
             System.out.println("Nombre : " + poke[i].getNombre());
             System.out.println("Puntos de Vida : " + poke[i].getVida());
             System.out.println("Puntos de Ataque : " + poke[i].getAtaque());
-            System.out.println(poke[i].getImagen());
+            System.out.println("" + poke[i].getImagen());
             System.out.println("");
             iteracion++;
         }
@@ -302,35 +323,45 @@ public class Menu {
     private void agregarPokemon() {
 
         Scanner valor = new Scanner(System.in);
-        Random random = new Random();
         String nombre, imagen;
 
         String estado = "Vivo";
-        int vida = (random.nextInt()) * 100 + 50;
-        int ataque = (random.nextInt()) * 20 + 5;
+        int vida = (int) ((Math.random()) * (100 - 50 + 1)) + 50;
+        int ataque = (int) ((Math.random()) * (20 - 5 + 1)) + 5;
 
         System.out.println("Ingrese el nombre del Pokemon : ");
         nombre = valor.nextLine().trim();
 
         System.out.println("Ingrese una imagen para del Pokemon : ");
-        imagen = valor.nextLine().trim();
+        imagen = valor.nextLine();
 
-        poke[this.contador] = new Pokemon(nombre, vida, estado, ataque, imagen, 0, 0, 0);
+        this.poke[this.contador] = new Pokemon(nombre, vida, estado, ataque, imagen, 0, 0, 0);
         this.contador++;
 
         System.out.println("¡ Pokemon creado exitosamente !\n");
+
         opcion();
+
     }
 
     // Este metodo que permite editar a cada pokemon que tenemos almacenado en el arreglo.
     private void editarPokemon() {
 
         Scanner entrada = new Scanner(System.in);
-        System.out.println("Ingrese el nombre del Pokemon a modificar : ");
+        System.out.println("");
+        for (int i = 0; i < this.contador; i++) {
+            System.out.println(+(1 + i) + " " + poke[i].getNombre());
+        }
+        System.out.println("¿ Ingrese el nombre del pokemon que desea modificar ?");
         String nombre = entrada.nextLine().trim();
 
         for (int i = 0; i < this.contador; i++) {
             if (poke[i].getNombre().equalsIgnoreCase(nombre)) {
+
+                System.out.println("----------------Pokemon seleccionado a modificar--------------------");
+                System.out.println("Nombre : " + poke[i].getNombre());
+                System.out.println("Ataque :" + poke[i].getAtaque());
+                System.out.println("Vida : " + poke[i].getVida() + "\n");
 
                 System.out.println("Ingrese el nuevo nombre de su pokemon :");
                 String nuevoNombre = entrada.nextLine();
@@ -428,7 +459,6 @@ public class Menu {
     // Este metodo contiene toda la logica de la batalla pokemon.
     private void batallar(Jugador jugadorUno, Jugador jugadorDos) {
 
-        Scanner entrada = new Scanner(System.in);
         Pokemon pokeUno = null, pokeDos = null, pokeTres = null, pokeCuatro = null;
         int contadorAtaqueUno = 1;
         int contadorAtaqueDos = 1;
@@ -604,7 +634,8 @@ public class Menu {
         int vida = 0, ataque = 0, partida = 0, recibido = 0, elegido = 0;
 
         for (int i = 0; i < this.contador; i++) {
-            if (this.poke[i].getNombre().equalsIgnoreCase(pokemon) && !(pokemon.equals("")))  {
+            if (this.poke[i].getNombre().equalsIgnoreCase(pokemon) && !(pokemon.equals(""))) {
+
                 nombre = poke[i].getNombre();
                 vida = poke[i].getVida();
                 estado = poke[i].getEstado();
@@ -619,7 +650,7 @@ public class Menu {
 
         Pokemon pokeAux = new Pokemon(nombre, vida, estado, ataque, imagen, partida, recibido, elegido);
 
-        if (pokemon.equals("")) {
+        if ((pokemon.equals("")) || !(nombre.equalsIgnoreCase(pokemon))) {
             System.out.println("¡ El nombre del pokemon " + pokemon + " esta incorrecto o no existe, vuelva a intentarlo !\n");
             System.out.println("Ingrese el nombre de su pokemon nuevamente : ");
             String nombrePokemon = entrada.nextLine();
@@ -779,6 +810,51 @@ public class Menu {
                 + "              %%&&&&&&&&&&&&&&&&&&&&&&&&&&&%%%%             \n"
                 + "            ##%##  *%%%%&&&&&&&&&&&%%%%%%, *%%%%            \n"
                 + "          %%%#%##(,                       /##%%%%#.    ", 0, 0, 0);
+        this.contador++;
+
+        poke[this.contador] = new Pokemon("Bulbasur", 85, "Vivo", 15, "((,                                           \n"
+                + "        *((( (((((((((((((.                                 \n"
+                + "        ((((((( (((((((((((((((((( ((                       \n"
+                + "         (((((((/((((((((((((((((((( ((                     \n"
+                + "       (((((((((( (((((((( .  ((((((( (*        ######      \n"
+                + "      (/(((((((((( (((((( ####### #####################     \n"
+                + "     ((((((((((((((,(((( (#################/.,,,,######     \n"
+                + "   ((.(((((((((((((/ (((*(################# ,,, ########    \n"
+                + "  /( ((((((((((((((((.  ((########### ## , ###########  #   \n"
+                + "  /( (((((((((((((((((  (((#### @ ,, ##*######## ,,##(@,@   \n"
+                + " /// (((((((((((((( .##(((#### @%,@@,,######### ,,,(# @, @# \n"
+                + "  /// (((((((((( ,,,, ####### @@ ,%@,, ############## ,, @, \n"
+                + "  ////* ///// ,,,,,, ########(@@@ ,,,,, ############## (### \n"
+                + "    ////// ##  ,,,, #########/########################### # \n"
+                + "         #######################    ,##############  ###    \n"
+                + "       ########### ######### #######################        \n"
+                + "      # ,,,, ### /###########(((((      ..     ((######     \n"
+                + "     ##.,,,.#### ### ,,.##### ((((((((((((((((((########    \n"
+                + "     ##### ##### ## ,,, #####,((((((((((((((((((#### ,,#    \n"
+                + "     (########## (## ,, ##### ((((((((((((  ((((###(,,,##   \n"
+                + "      (((((((((( ((###/######.       #*      (((#########   \n"
+                + "       (((((((( ( ((######## * @#,  @          (((#### #&@  \n"
+                + "             *      &@(@  @                         & ", 0, 0, 0);
+        this.contador++;
+
+        poke[this.contador] = new Pokemon("Snorlax", 75, "Vivo", 20, " %%@              @%%%%&                   \n"
+                + "                 @%%%%%%%%%%%%%%@@%%%%%&@                   \n"
+                + "                  %@............   .. %&*                   \n"
+                + "     &@%%%&      @ ....... ... %......*(&                   \n"
+                + "     %%%%%%%&&  #&....@@,....... .*@****@                   \n"
+                + "    @%%%%%%%%&&&(........................@                  \n"
+                + "    *%%%%%%%@@.. ....... ....... ....... ..*%@              \n"
+                + "     %%%%%%%..............................***%%%%/          \n"
+                + "      %%%%/..................... ........,***%%%%%%%        \n"
+                + "       %%%%............................*****%%%%%%%%%%      \n"
+                + "      %%%%%%#@(/@@%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     \n"
+                + "      %%,,%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&  *%&%%%%%@.   \n"
+                + "   @# ..........@%%%%%%%%%%%%%%%%%%%%%%%.........%  %&&/    \n"
+                + "     @............&&%%%%%%%%%%%%%%%%%%&..............       \n"
+                + "   ..... ***@#&***@&&%%%%%%%%%%%%%%%%%.,*%((((***...   .    \n"
+                + " *  ,...*(((((((**&&&&&&&&&&&&&&&&&&&&.*(((((((@**...       \n"
+                + "   @ ...*(((((@*@&&&&&&&&&&&&&&&&&&&&&@@*,&((@***..@        \n"
+                + "       @,..#@", 0, 0, 0);
         this.contador++;
     }
 
